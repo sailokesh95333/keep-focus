@@ -1,0 +1,49 @@
+{
+  "environment": "development",
+  "express": {
+      "port": 3001,
+      "morgan": "dev"
+  },
+  "settings": {
+      "proxy": null,
+      "utcOffset": 1, 
+      "amountToBePaid": "100$",
+      "twitterHandle": "sadyashica",
+      "syncInterval": 30000,
+      "websiteDomain": "www.sadyashica.xyz",
+      "accounts": {
+          "forest": {
+              "username": "email@address.com",
+              "password": "password23"
+          },
+          "habitify": {
+              "username": "email@address.com",
+              "password": "password23"
+          }
+      },
+      "focus": [
+          {
+              "id": 0,
+              "name": "studying",
+              "goal": 180
+          },
+          {
+              "id": 1,
+              "name": "programming",
+              "goal": 400
+          }
+      ],
+      "habits": [
+          {
+              "id": "-LSMRRzzy7zmuwVqvXgf",
+              "name": "getting up early",
+              "goal": 5
+          },
+          {
+              "id": "-LSMLfIOoJNCDoaPAGpP",
+              "name": "meditate",
+              "goal": 7
+          }
+      ]
+  }
+}
