@@ -1,0 +1,74 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+
+  <title><%= twitterHandle %> | My Weekly Overview</title>
+  <meta name="description" content="Every week I don’t reach my focus and habit goals, <%= amountToBePaid %> will be raffled on my Twitter account (unless otherwise stated).">
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@<%= twitterHandle %>" />
+  <meta name="twitter:title" content="<%= twitterHandle %> | My Weekly Overview" />
+  <meta name="twitter:description" content="Every week I don’t reach my focus and habit goals, <%= amountToBePaid %> will be raffled on my Twitter account (unless otherwise stated)." />
+  <meta name="twitter:image" content="https://<%= websiteDomain %>/assets/img/twitter_thumb.jpg" />
+
+  <link rel="stylesheet" type="text/css" href="assets/css/main.css?ver=1.1">
+</head>
+
+<body>
+  <div class="content__wrapper">
+    <h1 class="content__title">My Weekly Overview</h1>
+
+    <!-- Focus Goals Wrapper-->
+    <div class="section__wrapper style--red">
+      <h3 class="section__title">my weekly focus goals</h3>
+
+      <div class="section__tasks">
+        <% focus.forEach(item => { %>
+        <div class="section__task" id="focus-<%= item.id %>">
+          <h3 class="task__title"><%= item.name %></h3>
+          <div class="task__goal">
+            <span class="task__goal__reached"><%= item.focused %></span>
+            <span class="task__goal__wished">/<%= item.goal %></span>
+          </div>
+        </div>
+        <% }); %>
+      </div>
+
+    </div>
+    <!-- End Focus Goals Wrapper -->
+
+    <!-- Habit Goals Wrapper-->
+    <div class="section__wrapper style--blue">
+      <h3 class="section__title">my weekly habit goals</h3>
+
+      <div class="section__tasks">
+        <% habits.forEach(item => { %>
+        <div class="section__task" id="habit-<%= item.id %>">
+          <h3 class="task__title"><%= item.name %></h3>
+          <div class="task__goal">
+            <span class="task__goal__reached"><%= item.done %></span>
+            <span class="task__goal__wished">/ <%= item.goal %></span>
+          </div>
+        </div>
+        <% }); %>
+      </div>
+
+    </div>
+    <!-- End Habit Goals Wrapper -->
+
+    <div class="disclaimer">
+      <p>This week will end in <span class="style--dark" id="remaining__time"><%= remainingTime %> (UTC<%= (utcOffset >= 0) ? `+${utcOffset}` : '-${utcOffset}' %>)</span>. Every week I don’t reach my focus and habit goals, <span class="style--dark"><%= amountToBePaid %></span> will be raffled on my <a href="https://twitter.com/<%= twitterHandle %>" target="_blank" class="style--dark">Twitter</a> account (unless otherwise stated).</p>
+    </div>
+    
+  </div>
+  
+  <script src="assets/js/jquery.min.js"></script>
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+
+</html>
