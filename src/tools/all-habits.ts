@@ -1,5 +1,5 @@
 // import dependencies
-import { Habitify } from '../Habitify';
+import { Habitify } from '../habitify';
 import config from '../configuration';
 
 // load configuration settings
