@@ -19,3 +19,9 @@ The object key encodes a date in the format `DDMMYYYY` and each day, a number fr
 2         the user has completed the habit on the specified date
 3         the user has failed the habit on the specified date
 ```
+
+## Running in production 
+
+```txt
+ENV=PROD pm2 start dist/server.js --name "focus-tracker"
+```

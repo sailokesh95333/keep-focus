@@ -1,4 +1,4 @@
-import { Habitify } from '../Habitify';
+import { Habitify } from '../habitify';
 
 
 async function runTests () {
