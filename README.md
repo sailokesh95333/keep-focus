@@ -23,5 +23,5 @@ The object key encodes a date in the format `DDMMYYYY` and each day, a number fr
 ## Running in production 
 
 ```txt
-ENV=PROD pm2 start dist/server.js --name "focus-tracker"
+NODE_ENV=production pm2 start dist/server.js --name "focus-tracker"
 ```
