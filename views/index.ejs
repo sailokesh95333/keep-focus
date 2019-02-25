@@ -32,7 +32,7 @@
           <h3 class="task__title"><%= item.name %></h3>
           <div class="task__goal">
             <span class="task__goal__reached"><%= item.focused %></span>
-            <span class="task__goal__wished">/<%= item.goal %></span>
+            <span class="task__goal__wished">/ <%= item.goal %></span>
           </div>
         </div>
         <% }); %>
@@ -61,7 +61,7 @@
     <!-- End Habit Goals Wrapper -->
 
     <div class="disclaimer">
-      <p>This week will end in <span class="style--dark" id="remaining__time"><%= remainingTime %> (UTC<%= (utcOffset >= 0) ? `+${utcOffset}` : '-${utcOffset}' %>)</span>. Every week I don’t reach my focus and habit goals, <span class="style--dark"><%= amountToBePaid %></span> will be raffled on my <a href="https://twitter.com/<%= twitterHandle %>" target="_blank" class="style--dark">Twitter</a> account (unless otherwise stated).</p>
+      <p>This week will end in <span class="style--dark" id="remaining__time"><%= remainingTime %></span> (UTC<%= (utcOffset >= 0) ? `+${utcOffset}` : '-${utcOffset}' %>). Every week I don’t reach my focus and habit goals, <span class="style--dark"><%= amountToBePaid %></span> will be raffled on my <a href="https://twitter.com/<%= twitterHandle %>" target="_blank" class="style--dark">Twitter</a> account (unless otherwise stated).</p>
     </div>
     
   </div>

@@ -1,4 +1,5 @@
 // import dependencies
+import * as moment from 'moment';
 import config from '../configuration';
 import { ForestConfig, SyncData } from './interfaces';
 import { Forest } from '../forest';
@@ -59,13 +60,16 @@ class SyncManager {
   }
 
   public getRemainingMinutes() : number {
-    return Math.ceil(getEndOfWeek(this.config.utcOffset) - (new Date().getTime())) / (1000*60);
+    let start = moment().endOf('week').add(1, 'days').utcOffset(this.config.utcOffset);
+    let end = moment().utcOffset(this.config.utcOffset);
+    let duration = moment.duration(end.diff(start));
+    return Math.ceil(duration.asMinutes());
   }
 
   private async sync() : Promise<void> {
     // ## sync focus entries
     this.logger.normal('syncing all focus goals');
-    const TWO_WEEKS_BACK = new Date().getTime() - 1000*60*60*24*14;
+    const TWO_WEEKS_BACK = moment().valueOf() - 1000*60*60*24*14;
     const plants = await this.forest.getAllPlantsSince(TWO_WEEKS_BACK);
 
     // start and end of week
