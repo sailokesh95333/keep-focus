@@ -62,7 +62,7 @@ class SyncManager {
   public getRemainingMinutes() : number {
     let start = moment().endOf('week').add(1, 'days').utcOffset(this.config.utcOffset);
     let end = moment().utcOffset(this.config.utcOffset);
-    let duration = moment.duration(end.diff(start));
+    let duration = moment.duration(start.diff(end));
     return Math.ceil(duration.asMinutes());
   }
 
