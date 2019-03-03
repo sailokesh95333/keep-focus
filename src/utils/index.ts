@@ -2,11 +2,11 @@
 import * as moment from 'moment';
 
 export const getStartOfWeek = function getStartOfWeek(timezone: number) : number {
-  return moment().startOf('week').add(1, 'days').utcOffset(timezone).valueOf();
+  return moment().startOf('isoWeek').utcOffset(timezone).valueOf();
 }
 
 export const getEndOfWeek = function getEndOfWeek(timezone: number) : number {
-  return moment().endOf('week').add(1, 'days').utcOffset(timezone).valueOf();
+  return moment().endOf('isoWeek').utcOffset(timezone).valueOf();
 }
 
 export const minutesToString = function minutesToString(minutes: number) : string {
