@@ -72,6 +72,11 @@ class SyncManager {
     const TWO_WEEKS_BACK = moment().valueOf() - 1000*60*60*24*14;
     const plants = await this.forest.getAllPlantsSince(TWO_WEEKS_BACK);
 
+    // LMAO wtf am i doing
+    
+
+    // lol wat
+
     // start and end of week
     const startOfWeek = getStartOfWeek(this.config.utcOffset);
     const endOfWeek = getEndOfWeek(this.config.utcOffset);
