@@ -8,6 +8,10 @@ export interface ForestConfig {
   accounts: Accounts;
   focus: FocusItem[];
   habits: HabitItem[];
+  lametric: {
+    pushUrl: string;
+    token: string;
+  }
 }
 
 export interface Accounts {
@@ -37,4 +41,8 @@ export interface HabitItem {
 export interface SyncData {
   focus: FocusItem[];
   habits: HabitItem[];
+  max: number;
+  total: number;
+  goal: number;
+  displayBoth: boolean;
 }

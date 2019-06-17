@@ -6,13 +6,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
 
-  <title><%= twitterHandle %> | My Weekly Overview</title>
-  <meta name="description" content="Every week I don’t reach my focus and habit goals, <%= amountToBePaid %> will be raffled on my Twitter account (unless otherwise stated).">
+  <title><%= twitterHandle %> | My Daily Overview</title>
+  <meta name="description" content="Every day I don’t reach my focus and habit goals, <%= amountToBePaid %> will be raffled on zennotify's Discord server (unless otherwise stated).">
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@<%= twitterHandle %>" />
-  <meta name="twitter:title" content="<%= twitterHandle %> | My Weekly Overview" />
-  <meta name="twitter:description" content="Every week I don’t reach my focus and habit goals, <%= amountToBePaid %> will be raffled on my Twitter account (unless otherwise stated)." />
+  <meta name="twitter:title" content="<%= twitterHandle %> | My Daily Overview" />
+  <meta name="twitter:description" content="Every day I don’t reach my focus and habit goals, <%= amountToBePaid %> will be raffled on zennotify's Discord server (unless otherwise stated)." />
   <meta name="twitter:image" content="https://<%= websiteDomain %>/assets/img/twitter_thumb.jpg" />
 
   <link rel="stylesheet" type="text/css" href="assets/css/main.css?ver=1.1">
@@ -20,11 +20,11 @@
 
 <body>
   <div class="content__wrapper">
-    <h1 class="content__title">My Weekly Overview</h1>
+    <h1 class="content__title">My Daily Overview</h1>
 
     <!-- Focus Goals Wrapper-->
     <div class="section__wrapper style--red">
-      <h3 class="section__title">my weekly focus goals</h3>
+      <h3 class="section__title">my daily focus goals</h3>
 
       <div class="section__tasks">
         <% focus.forEach(item => { %>
@@ -43,7 +43,7 @@
 
     <!-- Habit Goals Wrapper-->
     <div class="section__wrapper style--blue">
-      <h3 class="section__title">my weekly habit goals</h3>
+      <h3 class="section__title">my daily habit goals</h3>
 
       <div class="section__tasks">
         <% habits.forEach(item => { %>
@@ -61,7 +61,7 @@
     <!-- End Habit Goals Wrapper -->
 
     <div class="disclaimer">
-      <p>This week will end in <span class="style--dark" id="remaining__time"><%= remainingTime %></span> (UTC<%= (utcOffset >= 0) ? `+${utcOffset}` : '-${utcOffset}' %>). Every week I don’t reach my focus and habit goals, <span class="style--dark"><%= amountToBePaid %></span> will be raffled on my <a href="https://twitter.com/<%= twitterHandle %>" target="_blank" class="style--dark">Twitter</a> account (unless otherwise stated).</p>
+      <p>Today will end in <span class="style--dark" id="remaining__time"><%= remainingTime %></span> (UTC<%= (utcOffset >= 0) ? `+${utcOffset}` : '-${utcOffset}' %>). Every day I don’t reach my focus and habit goals, <span class="style--dark"><%= amountToBePaid %></span> will be raffled on zennotify's Discord server (unless otherwise stated).</p>
     </div>
     
   </div>

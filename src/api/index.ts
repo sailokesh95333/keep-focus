@@ -5,6 +5,7 @@
 import * as _ from 'lodash';
 import { Request, Response, NextFunction, RequestHandler } from 'express';
 export { default as status } from './status';
+export { default as webhooks } from './webhooks';
 
 export interface IRequest extends Request {
   isAdmin?: boolean;

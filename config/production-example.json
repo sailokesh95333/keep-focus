@@ -1,49 +1,53 @@
 {
   "environment": "production",
   "express": {
-      "port": 443,
-      "morgan": "combined"
+    "port": 443,
+    "morgan": "combined"
   },
   "settings": {
-      "proxy": null,
-      "utcOffset": 1, 
-      "amountToBePaid": "100$",
-      "twitterHandle": "keepfocus",
-      "syncInterval": 30000,
-      "websiteDomain": "www.keepfocus.xyz",
-      "accounts": {
-          "forest": {
-              "username": "email@address.com",
-              "password": "password23"
-          },
-          "habitify": {
-              "username": "email@address.com",
-              "password": "password23"
-          }
+    "proxy": null,
+    "utcOffset": 1,
+    "amountToBePaid": "100$",
+    "twitterHandle": "keepfocus",
+    "syncInterval": 30000,
+    "websiteDomain": "www.keepfocus.xyz",
+    "accounts": {
+      "forest": {
+        "username": "email@address.com",
+        "password": "password23"
       },
-      "focus": [
-          {
-              "id": 0,
-              "name": "studying",
-              "goal": 180
-          },
-          {
-              "id": 1,
-              "name": "programming",
-              "goal": 400
-          }
-      ],
-      "habits": [
-          {
-              "id": "-LSMRRzzy7zmuwVqvXgf",
-              "name": "getting up early",
-              "goal": 5
-          },
-          {
-              "id": "-LSMLfIOoJNCDoaPAGpP",
-              "name": "meditate",
-              "goal": 7
-          }
-      ]
+      "habitify": {
+        "username": "email@address.com",
+        "password": "password23"
+      }
+    },
+    "focus": [
+      {
+        "id": 0,
+        "name": "studying",
+        "goal": 180
+      },
+      {
+        "id": 1,
+        "name": "programming",
+        "goal": 400
+      }
+    ],
+    "habits": [
+      {
+        "id": "-LSMRRzzy7zmuwVqvXgf",
+        "name": "getting up early",
+        "goal": 5
+      },
+      {
+        "id": "-LSMLfIOoJNCDoaPAGpP",
+        "name": "meditate",
+        "goal": 7
+      }
+    ],
+    "lametric": {
+      "pushUrl": "https://developer.lametric.com/api/v1/dev/widget/update/com.lametric.xxxxxxxxxxxxxxxxxxxx/1",
+      "token": "asdjkahsd87qye3u2hedjhadhauydtquyjgduyagdjhasdbhjsad=="
+    }
   }
 }

@@ -4,8 +4,9 @@ import config from '../configuration';
 import { ForestConfig, SyncData } from './interfaces';
 import { Forest } from '../forest';
 import { Habitify } from '../habitify';
+import { LaMetric } from '../lametric';
 import { Plant } from '../forest/interfaces';
-import { getStartOfWeek, getEndOfWeek, getWeekDatesList } from '../utils';
+import { getStartOfWeek, getEndOfWeek, getStartOfDay, getEndOfDay, getWeekDatesList, getTodayDatesList } from '../utils';
 import { Logger, DebugLevel } from '../logger';
 import { Habit } from '../habitify/interfaces';
 
@@ -17,6 +18,7 @@ class SyncManager {
   public db: SyncData;
   private forest: Forest;
   private habitify: Habitify;
+  private lametric: LaMetric;
   private interval: NodeJS.Timer;
   private logger: Logger;
   
@@ -30,12 +32,17 @@ class SyncManager {
       habits: this.config.habits.map(habit => {
         habit.done = 0;
         return habit;
-      })
+      }),
+      max: parseInt(process.env.MAX_FOCUS) || 0,
+      total: 0,
+      goal: 0,
+      displayBoth: true
     };
 
     // set up clients
     this.forest = new Forest(this.config.accounts.forest.username, this.config.accounts.forest.password, null, null, this.config.proxy);
     this.habitify = new Habitify(this.config.accounts.habitify.username, this.config.accounts.habitify.password);
+    this.lametric = new LaMetric(this.config.lametric.pushUrl, this.config.lametric.token);
     
     // set up logger
     this.logger = new Logger('sync-manager');
@@ -54,15 +61,20 @@ class SyncManager {
     }, this.config.syncInterval);
   }
 
+  public async pushLametric() : Promise<void> {
+    // ## update LaMetric app
+    await this.lametric.push(this.db);
+  }
+
   public stop() : void {
     // clear interval
     clearInterval(this.interval);
   }
 
   public getRemainingMinutes() : number {
-    let start = moment().endOf('week').add(1, 'days').utcOffset(this.config.utcOffset);
-    let end = moment().utcOffset(this.config.utcOffset);
-    let duration = moment.duration(start.diff(end));
+    let end = moment().endOf('day').utcOffset(this.config.utcOffset);
+    let start = moment().utcOffset(this.config.utcOffset);
+    let duration = moment.duration(end.diff(start));
     return Math.ceil(duration.asMinutes());
   }
 
@@ -73,25 +85,37 @@ class SyncManager {
     const plants = await this.forest.getAllPlantsSince(TWO_WEEKS_BACK);
 
     // start and end of week
-    const startOfWeek = getStartOfWeek(this.config.utcOffset);
-    const endOfWeek = getEndOfWeek(this.config.utcOffset);
+    const startOfWeek = getStartOfDay(this.config.utcOffset);
+    const endOfWeek = getEndOfDay(this.config.utcOffset);
 
     // update all focus entries
+    let total = 0;
+    let goal = 0;
     this.db.focus.forEach(focus => {
       focus.focused = this.calculateMinutesFromPlantsWithTag(plants, focus.id, startOfWeek, endOfWeek);
+      total += focus.focused;
+      goal += focus.goal as number;
     });
+
+    // check if local max is greater than our max
+    this.db.total = total;
+    this.db.goal = goal;
+    if (total > this.db.max) this.db.max = total;
 
     // ## sync habit entries
     this.logger.normal('syncing all habit goals');
     const habits = await this.habitify.getAllHabits();
     
-    let dates = getWeekDatesList(this.config.utcOffset, startOfWeek, endOfWeek);
+    let dates = getTodayDatesList(this.config.utcOffset, startOfWeek, endOfWeek);
     this.db.habits.forEach(item => {
       const habit = habits[item.id];
       item.done = this.calculateNumberOfDoneHabit(habit, dates);
     });
 
     this.logger.green('successfully synced all focus and habit goals...');
+
+    // ## update LaMetric app
+    this.pushLametric();
   }
 
   private calculateNumberOfDoneHabit(habit: Habit, dates: string[]) : number {
