@@ -9,6 +9,14 @@ export const getEndOfWeek = function getEndOfWeek(timezone: number) : number {
   return moment().endOf('isoWeek').utcOffset(timezone).valueOf();
 }
 
+export const getStartOfDay = function getStartOfDay(timezone: number) : number {
+  return moment().startOf('day').utcOffset(timezone).valueOf();
+}
+
+export const getEndOfDay = function getEndOfDay(timezone: number) : number {
+  return moment().endOf('day').utcOffset(timezone).valueOf();
+}
+
 export const minutesToString = function minutesToString(minutes: number) : string {
   let m = moment.duration(minutes, 'minutes');
   return m.days() ? `${m.days()}d ${m.hours()}h ${m.minutes()}m` : `${m.hours()}h ${m.minutes()}m`;
@@ -24,4 +32,8 @@ export const getWeekDatesList = function getWeekDatesList(timezone: number, star
     dates.push(date.format('DDMMYYYY'));
   }
   return dates;
+}
+
+export const getTodayDatesList = function getTodayDatesList(timezone: number, start: number, end: number) : string[] {
+  return [moment(end).utcOffset(timezone).format('DDMMYYYY')];
 }
