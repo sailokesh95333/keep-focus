@@ -48,6 +48,16 @@
     "lametric": {
       "pushUrl": "https://developer.lametric.com/api/v1/dev/widget/update/com.lametric.xxxxxxxxxxxxxxxxxxxx/1",
       "token": "asdjkahsd87qye3u2hedjhadhauydtquyjgduyagdjhasdbhjsad=="
+    },
+    "discord": {
+      "webhookUrl": "https://discordapp.com/api/webhooks/24ewr4352423324324324/asdasdsaddasdasdjaskdjasjkdbasjhdvbasghdvasghdvsaghvdasgdvhs",
+      "remainingMinutes": 1,
+      "message": {
+        "username": "username#0001",
+        "avatar": "https://cdn.discordapp.com/avatars/259768900298735620/e0d6793c34f2a18e7dcbee46d33576f9.png?size=256",
+        "channel": "Twitter (@twitterhandle)",
+        "website": "https://www.keepfocus.xyz"
+      }
     }
   }
 }

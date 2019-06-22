@@ -9,6 +9,7 @@ import { Plant } from '../forest/interfaces';
 import { getStartOfWeek, getEndOfWeek, getStartOfDay, getEndOfDay, getWeekDatesList, getTodayDatesList } from '../utils';
 import { Logger, DebugLevel } from '../logger';
 import { Habit } from '../habitify/interfaces';
+import Discord from '../discord';
 
 // get global configuration from json file
 const CONFIG = config.get('settings');
@@ -19,6 +20,7 @@ class SyncManager {
   private forest: Forest;
   private habitify: Habitify;
   private lametric: LaMetric;
+  private discord: Discord;
   private interval: NodeJS.Timer;
   private logger: Logger;
   
@@ -36,13 +38,16 @@ class SyncManager {
       max: parseInt(process.env.MAX_FOCUS) || 0,
       total: 0,
       goal: 0,
-      displayBoth: true
+      displayBoth: true,
+      discordActive: true,
+      lastNotified: -1
     };
 
     // set up clients
     this.forest = new Forest(this.config.accounts.forest.username, this.config.accounts.forest.password, null, null, this.config.proxy);
     this.habitify = new Habitify(this.config.accounts.habitify.username, this.config.accounts.habitify.password);
     this.lametric = new LaMetric(this.config.lametric.pushUrl, this.config.lametric.token);
+    this.discord = new Discord(this.config.discord.webhookUrl);
     
     // set up logger
     this.logger = new Logger('sync-manager');
@@ -64,6 +69,29 @@ class SyncManager {
   public async pushLametric() : Promise<void> {
     // ## update LaMetric app
     await this.lametric.push(this.db);
+  }
+
+  public async pushDiscord() : Promise<void> {
+    // send discord message if needed
+    let isEndOfDay = (this.getRemainingMinutes() <= this.config.discord.remainingMinutes) ? true : false;
+    let hasReachedGoals = true;
+    
+    // check focus goals
+    this.db.focus.forEach((it) => {
+      if (it.focused < it.goal) hasReachedGoals = false;
+    });
+
+    // check habit goals
+    this.db.habits.forEach((it) => {
+      if (it.done < it.goal) hasReachedGoals = false;
+    });
+
+    const lastNotified = moment().endOf('day').utcOffset(this.config.utcOffset).valueOf();
+    if (isEndOfDay && !hasReachedGoals && this.db.lastNotified !== lastNotified) {
+      this.db.lastNotified = lastNotified;
+      this.logger.red('user has not reached daily goals...');
+      this.discord.sendNotification(this.config.discord.message.username, this.config.amountToBePaid, this.config.discord.message.channel, this.config.discord.message.website, this.config.discord.message.avatar);
+    }
   }
 
   public stop() : void {
@@ -113,6 +141,9 @@ class SyncManager {
     });
 
     this.logger.green('successfully synced all focus and habit goals...');
+
+    // ## push out discord message if needed
+    this.pushDiscord();
 
     // ## update LaMetric app
     this.pushLametric();
