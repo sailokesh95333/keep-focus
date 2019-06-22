@@ -53,6 +53,7 @@ export function addRoutes() : void {
 
   // # webhook routes
   app.get('/api/webhooks/lametric', api.http(api.webhooks.lametric));
+  app.get('/api/webhooks/discord', api.http(api.webhooks.discord));
 
   // # render files
   app.get('/', api.render(api.status.render) );

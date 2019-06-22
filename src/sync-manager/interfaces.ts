@@ -11,6 +11,16 @@ export interface ForestConfig {
   lametric: {
     pushUrl: string;
     token: string;
+  },
+  discord: {
+    webhookUrl: string;
+    remainingMinutes: number;
+    message: {
+      username: string;
+      avatar: string;
+      channel: string;
+      website: string;
+    }
   }
 }
 
@@ -45,4 +55,6 @@ export interface SyncData {
   total: number;
   goal: number;
   displayBoth: boolean;
+  discordActive: boolean;
+  lastNotified: number;
 }

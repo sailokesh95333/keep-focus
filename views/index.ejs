@@ -7,12 +7,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
 
   <title><%= twitterHandle %> | My Daily Overview</title>
-  <meta name="description" content="Every day I don’t reach my focus and habit goals, <%= amountToBePaid %> will be raffled on zennotify's Discord server (unless otherwise stated).">
+  <meta name="description" content="Every day I don’t reach my focus and habit goals, <%= amountToBePaid %> will be raffled on either Discord or Twitter (unless otherwise stated).">
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@<%= twitterHandle %>" />
   <meta name="twitter:title" content="<%= twitterHandle %> | My Daily Overview" />
-  <meta name="twitter:description" content="Every day I don’t reach my focus and habit goals, <%= amountToBePaid %> will be raffled on zennotify's Discord server (unless otherwise stated)." />
+  <meta name="twitter:description" content="Every day I don’t reach my focus and habit goals, <%= amountToBePaid %> will be raffled on either Discord or Twitter (unless otherwise stated)." />
   <meta name="twitter:image" content="https://<%= websiteDomain %>/assets/img/twitter_thumb.jpg" />
 
   <link rel="stylesheet" type="text/css" href="assets/css/main.css?ver=1.1">
@@ -61,7 +61,7 @@
     <!-- End Habit Goals Wrapper -->
 
     <div class="disclaimer">
-      <p>Today will end in <span class="style--dark" id="remaining__time"><%= remainingTime %></span> (UTC<%= (utcOffset >= 0) ? `+${utcOffset}` : '-${utcOffset}' %>). Every day I don’t reach my focus and habit goals, <span class="style--dark"><%= amountToBePaid %></span> will be raffled on zennotify's Discord server (unless otherwise stated).</p>
+      <p>Today will end in <span class="style--dark" id="remaining__time"><%= remainingTime %></span> (UTC<%= (utcOffset >= 0) ? `+${utcOffset}` : '-${utcOffset}' %>). Every day I don’t reach my focus and habit goals, <span class="style--dark"><%= amountToBePaid %></span> will be raffled on either Discord or Twitter (unless otherwise stated).</p>
     </div>
     
   </div>
