@@ -7,7 +7,8 @@
   "settings": {
     "proxy": null,
     "utcOffset": 1,
-    "amountToBePaid": "100$",
+    "amountToBePaid": "30$",
+    "morningAmountToBePaid": "20$",
     "twitterHandle": "sadyashica",
     "syncInterval": 30000,
     "websiteDomain": "www.sadyashica.xyz",
@@ -25,24 +26,28 @@
       {
         "id": 0,
         "name": "studying",
-        "goal": 180
+        "goal": 180,
+        "morningGoal": 100
       },
       {
         "id": 1,
         "name": "programming",
-        "goal": 400
+        "goal": 400,
+        "morningGoal": 200
       }
     ],
     "habits": [
       {
         "id": "-LSMRRzzy7zmuwVqvXgf",
         "name": "getting up early",
-        "goal": 5
+        "goal": 5,
+        "morningGoal": 0
       },
       {
         "id": "-LSMLfIOoJNCDoaPAGpP",
         "name": "meditate",
-        "goal": 7
+        "goal": 7,
+        "morningGoal": 0
       }
     ],
     "lametric": {
@@ -52,6 +57,7 @@
     "discord": {
       "webhookUrl": "https://discordapp.com/api/webhooks/24ewr4352423324324324/asdasdsaddasdasdjaskdjasjkdbasjhdvbasghdvasghdvsaghvdasgdvhs",
       "remainingMinutes": 1,
+      "remainingMorningMinutes": 780,
       "message": {
         "username": "username#0001",
         "avatar": "https://cdn.discordapp.com/avatars/259768900298735620/e0d6793c34f2a18e7dcbee46d33576f9.png?size=256",
