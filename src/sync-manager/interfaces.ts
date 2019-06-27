@@ -2,6 +2,7 @@ export interface ForestConfig {
   proxy: string;
   utcOffset: number;
   amountToBePaid: string;
+  morningAmountToBePaid: string;
   twitterHandle: string;
   syncInterval: number;
   websiteDomain: string;
@@ -15,6 +16,7 @@ export interface ForestConfig {
   discord: {
     webhookUrl: string;
     remainingMinutes: number;
+    remainingMorningMinutes: number;
     message: {
       username: string;
       avatar: string;
@@ -38,6 +40,7 @@ export interface FocusItem {
   id: number;
   name: string;
   goal: number | string;
+  morningGoal: number | string;
   focused?: number | string;
 }
 
@@ -45,6 +48,7 @@ export interface HabitItem {
   id: string;
   name: string;
   goal: number | string;
+  morningGoal: number | string;
   done?: number | string;
 }
 
@@ -57,4 +61,5 @@ export interface SyncData {
   displayBoth: boolean;
   discordActive: boolean;
   lastNotified: number;
+  lastMorningNotified: number;
 }

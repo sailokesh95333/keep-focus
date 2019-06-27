@@ -40,7 +40,8 @@ class SyncManager {
       goal: 0,
       displayBoth: true,
       discordActive: true,
-      lastNotified: -1
+      lastNotified: -1,
+      lastMorningNotified: -1
     };
 
     // set up clients
@@ -74,23 +75,39 @@ class SyncManager {
   public async pushDiscord() : Promise<void> {
     // send discord message if needed
     let isEndOfDay = (this.getRemainingMinutes() <= this.config.discord.remainingMinutes) ? true : false;
+    let isEndOfMorning = (this.getRemainingMinutes() <= this.config.discord.remainingMorningMinutes) ? true : false;
     let hasReachedGoals = true;
+    let hasReachedMorningGoals = true;
     
     // check focus goals
     this.db.focus.forEach((it) => {
       if (it.focused < it.goal) hasReachedGoals = false;
+      if (it.focused < it.morningGoal) hasReachedMorningGoals = false;
     });
 
     // check habit goals
     this.db.habits.forEach((it) => {
       if (it.done < it.goal) hasReachedGoals = false;
+      if (it.done < it.morningGoal) hasReachedMorningGoals = false;
     });
 
+    // check daily habits
     const lastNotified = moment().endOf('day').utcOffset(this.config.utcOffset).valueOf();
     if (isEndOfDay && !hasReachedGoals && this.db.lastNotified !== lastNotified) {
       this.db.lastNotified = lastNotified;
       this.logger.red('user has not reached daily goals...');
-      this.discord.sendNotification(this.config.discord.message.username, this.config.amountToBePaid, this.config.discord.message.channel, this.config.discord.message.website, this.config.discord.message.avatar);
+      if (this.db.discordActive) {
+        this.discord.sendNotification(this.config.discord.message.username, this.config.amountToBePaid, this.config.discord.message.channel, this.config.discord.message.website, this.config.discord.message.avatar, 'daily focus and habit goals');
+      }
+    }
+
+    // check morning habits
+    if (isEndOfMorning && !hasReachedMorningGoals && this.db.lastMorningNotified !== lastNotified) {
+      this.db.lastMorningNotified = lastNotified;
+      this.logger.red('user has not reached morning goals...');
+      if (this.db.discordActive) {
+        this.discord.sendNotification(this.config.discord.message.username, this.config.morningAmountToBePaid, this.config.discord.message.channel, this.config.discord.message.website, this.config.discord.message.avatar, 'morning focus and habit goals');
+      }
     }
   }
 

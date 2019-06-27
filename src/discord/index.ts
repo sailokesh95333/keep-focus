@@ -27,7 +27,7 @@ export default class Discord {
     return await request(options);
   }
 
-  public async sendNotification(username: string, prize: string, channel: string, url: string, thumbnail: string) : Promise<void> {
+  public async sendNotification(username: string, prize: string, channel: string, url: string, thumbnail: string, message: string) : Promise<void> {
     // prepare notification body
     let body = {
       username: 'Focus Tracker',
@@ -35,7 +35,7 @@ export default class Discord {
       embeds: [{
         type: 'rich',
         title: `${username} is slacking!`.toUpperCase(),
-        description: `${username} has failed to reach the daily focus and habit goals. Thus, the amount specified below will be raffled among all participants on the given channel.`,
+        description: `${username} has failed to reach the ${message}. Thus, the amount specified below will be raffled among all participants on the given channel.`,
         url,
         color: 16739693,
         footer: {
