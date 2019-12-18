@@ -39,7 +39,7 @@ class SyncManager {
       total: 0,
       goal: 0,
       displayBoth: true,
-      discordActive: true,
+      punishmentIsActive: true,
       lastNotified: -1,
       lastMorningNotified: -1
     };
@@ -96,7 +96,7 @@ class SyncManager {
     if (isEndOfDay && !hasReachedGoals && this.db.lastNotified !== lastNotified) {
       this.db.lastNotified = lastNotified;
       this.logger.red('user has not reached daily goals...');
-      if (this.db.discordActive) {
+      if (this.db.punishmentIsActive) {
         this.discord.sendNotification(this.config.discord.message.username, this.config.amountToBePaid, this.config.discord.message.channel, this.config.discord.message.website, this.config.discord.message.avatar, 'daily focus and habit goals');
       }
     }
@@ -105,7 +105,7 @@ class SyncManager {
     if (isEndOfMorning && !hasReachedMorningGoals && this.db.lastMorningNotified !== lastNotified) {
       this.db.lastMorningNotified = lastNotified;
       this.logger.red('user has not reached morning goals...');
-      if (this.db.discordActive) {
+      if (this.db.punishmentIsActive) {
         this.discord.sendNotification(this.config.discord.message.username, this.config.morningAmountToBePaid, this.config.discord.message.channel, this.config.discord.message.website, this.config.discord.message.avatar, 'morning focus and habit goals');
       }
     }

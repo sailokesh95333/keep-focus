@@ -20,18 +20,21 @@ const lametric = function lametric(options: any, object: any) : any {
   };
 }
 
-const discord = function discord(options: any, object: any) : any {
+const togglePunishment = function togglePunishment(options: any, object: any) : any {
   // trigger display both property
-  manager.db.discordActive = !manager.db.discordActive;
+  manager.db.punishmentIsActive = !manager.db.punishmentIsActive;
+  
+  // check current status and require password if want to disable
+  console.log(options.password);
 
   // return response object
   return {
     success: true,
-    discordActive: manager.db.discordActive
+    punishmentIsActive: manager.db.punishmentIsActive
   };
 }
 
 export default {
   lametric,
-  discord
+  togglePunishment
 }

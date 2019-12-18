@@ -72,6 +72,12 @@ body {
   font-size: 2.8rem;
 }
 
+.content__subtitle {
+  color: #b3b3b3;
+  font-size: 2rem;
+  font-weight: 500;
+}
+
 .section__wrapper {
   padding-top: 2.5rem;
 }
@@ -139,6 +145,14 @@ body {
   background: -webkit-linear-gradient(-45deg, #71A0E8 0%,#32D5BD 100%); /* Chrome10-25,Safari5.1-6 */
   background: linear-gradient(135deg, #71A0E8 0%,#32D5BD 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#71A0E8', endColorstr='#32D5BD',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+.style--grey .section__task {
+  background: #484848; /* Old browsers */
+  background: -moz-linear-gradient(-45deg, #484848 0%, #ADADAD 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(-45deg, #484848 0%,#ADADAD 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(135deg, #484848 0%,#ADADAD 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#484848', endColorstr='#ADADAD',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
 
 .disclaimer {
