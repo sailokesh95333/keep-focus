@@ -9,9 +9,11 @@
     "utcOffset": 1,
     "amountToBePaid": "30$",
     "morningAmountToBePaid": "20$",
+    "totalAmountToBePaid": "50$",
     "twitterHandle": "sadyashica",
     "syncInterval": 30000,
     "websiteDomain": "www.sadyashica.xyz",
+    "passwordHash": "ab1b71e67f77a4c9b07accde42a15d6d8b98a9de703d0254ccf955ae5c024198",
     "accounts": {
       "forest": {
         "username": "email@address.com",
