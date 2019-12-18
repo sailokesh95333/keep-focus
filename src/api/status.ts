@@ -33,9 +33,10 @@ const read = function read(options: any, object: any) : StatusResponse {
   // return response object
   return {
     utcOffset: manager.config.utcOffset,
-    amountToBePaid: manager.config.amountToBePaid,
+    amountToBePaid: manager.config.totalAmountToBePaid,
     twitterHandle: manager.config.twitterHandle,
     websiteDomain: manager.config.websiteDomain,
+    punishmentIsActive: manager.db.punishmentIsActive,
     remainingTime: minutesToString(manager.getRemainingMinutes()),
     focus,
     habits

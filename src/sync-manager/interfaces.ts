@@ -3,9 +3,11 @@ export interface ForestConfig {
   utcOffset: number;
   amountToBePaid: string;
   morningAmountToBePaid: string;
+  totalAmountToBePaid: string;
   twitterHandle: string;
   syncInterval: number;
   websiteDomain: string;
+  passwordHash: string;
   accounts: Accounts;
   focus: FocusItem[];
   habits: HabitItem[];
@@ -59,7 +61,7 @@ export interface SyncData {
   total: number;
   goal: number;
   displayBoth: boolean;
-  discordActive: boolean;
+  punishmentIsActive: boolean;
   lastNotified: number;
   lastMorningNotified: number;
 }
