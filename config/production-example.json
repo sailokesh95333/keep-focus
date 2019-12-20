@@ -1,7 +1,7 @@
 {
   "environment": "production",
   "express": {
-    "port": 443,
+    "port": 3001,
     "morgan": "combined"
   },
   "settings": {
