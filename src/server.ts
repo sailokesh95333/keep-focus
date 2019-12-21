@@ -15,7 +15,6 @@ const logger = new Logger('server');
 // # set application port
 // if the application runs in a production environment, it will listen to the environment variable 'PORT'
 const port = config.get('express:port');
-const isProd = config.get('environment') === 'production';
 logger.yellow('started server in mode: ' + config.get('environment'));
 
 // add API routes
