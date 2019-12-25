@@ -1,0 +1,65 @@
+{
+  "environment": "production",
+  "express": {
+    "port": 3001,
+    "morgan": "combined"
+  },
+  "settings": {
+    "proxy": null,
+    "utcOffset": 1,
+    "amountToBePaid": "30$",
+    "morningAmountToBePaid": "20$",
+    "totalAmountToBePaid": "50$",
+    "twitterHandle": "sadyashica",
+    "syncInterval": 30000,
+    "websiteDomain": "www.sadyashica.xyz",
+    "passwordHash": "e9a707cb9984fc3503d329bc2340ab3057f5bd52df96bdfc48e281fa476dfb19",
+    "accounts": {
+      "forest": {
+        "username": "nico@haenggi.ch",
+        "password": "lpic11lpic11"
+      },
+      "habitify": {
+        "username": "nico@haenggi.ch",
+        "password": "lpic11lpic11N*"
+      }
+    },
+    "focus": [
+      {
+        "id": 17,
+        "name": "studying",
+        "goal": 240,
+        "morningGoal": 100
+      }
+    ],
+    "habits": [
+      {
+        "id": "-LWMLfILoJnCDyaPAGpP",
+        "name": "morning meditation",
+        "goal": 1,
+        "morningGoal": 0
+      },
+      {
+        "id": "-LwZbjQf5swOfwkTu0Tj",
+        "name": "evening meditation",
+        "goal": 1,
+        "morningGoal": 0
+      }
+    ],
+    "lametric": {
+      "pushUrl": "https://developer.lametric.com/api/v1/dev/widget/update/com.lametric.cf46fca6e0c7de9e24da327b253675be/7",
+      "token": "OWM2MDBkYmIyYmJlNTUxZjA2NTE1ZGRlYmZiNDgwNGU1NzliZTdjMWQxMDYzMzQzOTg3Njk2MjQwMDhjZTQ2Yw=="
+    },
+    "discord": {
+      "webhookUrl": "https://discordapp.com/api/webhooks/656982417780768796/XE00g859PkS3SEyiUSEKPu6vBr--Pe_4IJWCzyAPR7RFIMZ5TIGURdaqXkbUutsm7Ts8",
+      "remainingMinutes": 1,
+      "remainingMorningMinutes": 720,
+      "message": {
+        "username": "sadyashica#5470",
+        "avatar": "https://cdn.discordapp.com/avatars/259768900298735620/e0d6793c34f2a18e7dcbee46d33576f9.png?size=256",
+        "channel": "Discord (Actually Copping Shoes)",
+        "website": "https://www.sadyashica.xyz"
+      }
+    }
+  }
+}

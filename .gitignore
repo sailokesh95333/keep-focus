@@ -30,7 +30,3 @@ dist/**/*
 
 # ignore db files
 db/*
-
-# ignore configuration files
-config/development.json
-config/production.json

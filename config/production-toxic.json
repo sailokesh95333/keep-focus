@@ -1,0 +1,77 @@
+{
+  "environment": "production",
+  "express": {
+    "port": 3002,
+    "morgan": "combined"
+  },
+  "settings": {
+    "proxy": null,
+    "utcOffset": 1,
+    "amountToBePaid": "15$",
+    "morningAmountToBePaid": "0$",
+    "totalAmountToBePaid": "15$",
+    "twitterHandle": "toxic",
+    "syncInterval": 30000,
+    "websiteDomain": "toxic.sadyashica.xyz",
+    "passwordHash": "30FED10C0D06813E5DC335734D794D4A298D7C1E6D0FEC837DAF72BDBD5A194D",
+    "accounts": {
+      "forest": {
+        "username": "boostspoof@gmail.com",
+        "password": "h[LZ2:+^B%k?gvBC"
+      },
+      "habitify": {
+        "username": "boostspoof@gmail.com",
+        "password": "h[LZ2:+^B%k?gvBC*"
+      }
+    },
+    "focus": [
+      {
+        "id": 17,
+        "name": "career development",
+        "goal": 30,
+        "morningGoal": 0
+      },
+      {
+        "id": 17,
+        "name": "coding",
+        "goal": 90,
+        "morningGoal": 0
+      },
+      {
+        "id": 17,
+        "name": "learning",
+        "goal": 60,
+        "morningGoal": 0
+      }
+    ],
+    "habits": [
+      {
+        "id": "-LWMLfILoJnCDyaPAGpP",
+        "name": "meditation",
+        "goal": 1,
+        "morningGoal": 0
+      },
+      {
+        "id": "-LwZbjQf5swOfwkTu0Tj",
+        "name": "workout",
+        "goal": 1,
+        "morningGoal": 0
+      }
+    ],
+    "lametric": {
+      "pushUrl": null,
+      "token": null
+    },
+    "discord": {
+      "webhookUrl": "https://discordapp.com/api/webhooks/656982417780768796/XE00g859PkS3SEyiUSEKPu6vBr--Pe_4IJWCzyAPR7RFIMZ5TIGURdaqXkbUutsm7Ts8",
+      "remainingMinutes": 1,
+      "remainingMorningMinutes": 720,
+      "message": {
+        "username": "toxic#1772",
+        "avatar": "https://cdn.discordapp.com/avatars/394551466204856320/42ec7c2c0b4b6eb9f5855fc3df0becdd.webp?size=256",
+        "channel": "Discord (Actually Copping Shoes)",
+        "website": "https://toxic.sadyashica.xyz"
+      }
+    }
+  }
+}
