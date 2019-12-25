@@ -169,6 +169,11 @@ class SyncManager {
   private calculateNumberOfDoneHabit(habit: Habit, dates: string[]) : number {
     let done = 0;
 
+    // check if habit is existing
+    if (!habit) {
+      return 0;
+    }
+
     // check how many habits have been done
     dates.forEach(date => {
       if (habit.checkins[date] && habit.checkins[date] === 2) {
