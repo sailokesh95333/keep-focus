@@ -21,7 +21,8 @@ export class LaMetric {
   public async push(data: SyncData) : Promise<void> {
     // check if refresh token was providen
     if (!this.pushUrl || !this.token) {
-      throw new Error('the pushUrl or token has not been specified');
+      this.logger.red('the pushUrl or token has not been specified. omitting pushing to device!');
+      return;
     }
 
     // create the payload
