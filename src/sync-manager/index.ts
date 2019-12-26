@@ -92,7 +92,7 @@ class SyncManager {
     });
 
     // check daily habits
-    const lastNotified = moment().endOf('day').utcOffset(this.config.utcOffset).valueOf();
+    const lastNotified = getEndOfDay(this.config.utcOffset);
     if (isEndOfDay && !hasReachedGoals && this.db.lastNotified !== lastNotified) {
       this.db.lastNotified = lastNotified;
       this.logger.red('user has not reached daily goals...');
@@ -117,8 +117,8 @@ class SyncManager {
   }
 
   public getRemainingMinutes() : number {
-    let end = moment().endOf('day').utcOffset(this.config.utcOffset);
-    let start = moment().utcOffset(this.config.utcOffset);
+    let end = moment().endOf('day').add(-1*this.config.utcOffset, 'hours');
+    let start = moment();
     let duration = moment.duration(end.diff(start));
     return Math.ceil(duration.asMinutes());
   }
