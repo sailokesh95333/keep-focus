@@ -62,7 +62,7 @@
 
     <div class="disclaimer">
       <% if (punishmentIsActive) { %>
-      <p>Today will end in <span class="style--dark" id="remaining__time"><%= remainingTime %></span> (UTC<%= (utcOffset >= 0) ? `+${utcOffset}` : `-${utcOffset}` %>). Every day I don’t reach my focus and habit goals, a total of <span class="style--dark"><%= amountToBePaid %></span> will be raffled on either Discord or Twitter (unless otherwise stated).</p>
+      <p>Today will end in <span class="style--dark" id="remaining__time"><%= remainingTime %></span> (UTC<%= (utcOffset >= 0) ? `+${utcOffset}` : `${utcOffset}` %>). Every day I don’t reach my focus and habit goals, a total of <span class="style--dark"><%= amountToBePaid %></span> will be raffled on either Discord or Twitter (unless otherwise stated).</p>
       <% } else { %>
       <p>I have taken a day off, thus no money will be raffled today. Today will end in <span class="style--dark" id="remaining__time"><%= remainingTime %></span> (UTC<%= (utcOffset >= 0) ? `+${utcOffset}` : '-${utcOffset}' %>). Check again tomorrow to see if I don’t reach my focus and habit goals, and if so, a total of <span class="style--dark"><%= amountToBePaid %></span> will be raffled on either Discord or Twitter.</p>
       <% } %>
