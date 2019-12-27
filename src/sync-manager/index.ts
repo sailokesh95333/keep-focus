@@ -170,7 +170,7 @@ class SyncManager {
     let done = 0;
 
     // check if habit is existing
-    if (!habit) {
+    if (!habit || !habit.checkins) {
       return 0;
     }
 
