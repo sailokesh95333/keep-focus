@@ -6,7 +6,7 @@
   },
   "settings": {
     "proxy": null,
-    "utcOffset": 1,
+    "utcOffset": -5,
     "amountToBePaid": "15$",
     "morningAmountToBePaid": "0$",
     "totalAmountToBePaid": "15$",
@@ -21,38 +21,38 @@
       },
       "habitify": {
         "username": "boostspoof@gmail.com",
-        "password": "h[LZ2:+^B%k?gvBC*"
+        "password": "h[LZ2:+^B%k?gvBC"
       }
     },
     "focus": [
       {
-        "id": 17,
+        "id": 12,
         "name": "career development",
         "goal": 30,
         "morningGoal": 0
       },
       {
-        "id": 17,
+        "id": 11,
         "name": "coding",
         "goal": 90,
         "morningGoal": 0
       },
       {
-        "id": 17,
-        "name": "learning",
+        "id": 2,
+        "name": "studying",
         "goal": 60,
         "morningGoal": 0
       }
     ],
     "habits": [
       {
-        "id": "-LWMLfILoJnCDyaPAGpP",
+        "id": "1j2b-mjku-wy55-rrnv",
         "name": "meditation",
         "goal": 1,
         "morningGoal": 0
       },
       {
-        "id": "-LwZbjQf5swOfwkTu0Tj",
+        "id": "8kz9-6jox-av84-qg2e",
         "name": "workout",
         "goal": 1,
         "morningGoal": 0
