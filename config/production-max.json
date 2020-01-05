@@ -1,0 +1,59 @@
+{
+  "environment": "production",
+  "express": {
+    "port": 3003,
+    "morgan": "combined"
+  },
+  "settings": {
+    "proxy": null,
+    "utcOffset": 1,
+    "amountToBePaid": "20$",
+    "morningAmountToBePaid": "10$",
+    "totalAmountToBePaid": "30$",
+    "twitterHandle": "carlos",
+    "syncInterval": 30000,
+    "websiteDomain": "carlos.sadyashica.xyz",
+    "passwordHash": "4c4205e2355c3b1170170dabc1a2fe87e978f740ebd714def12c3ddc422f0ea2",
+    "accounts": {
+      "forest": {
+        "username": "muellmax@hotmail.com",
+        "password": "musslernen"
+      },
+      "habitify": {
+        "username": "muellmax@hotmail.com",
+        "password": "musslernen"
+      }
+    },
+    "focus": [
+      {
+        "id": 11,
+        "name": "studying",
+        "goal": 360,
+        "morningGoal": 120
+      }
+    ],
+    "habits": [
+      {
+        "id": "-Lxr2z7n6rkScOjNxXXe",
+        "name": "getting up early",
+        "goal": 1,
+        "morningGoal": 0
+      }
+    ],
+    "lametric": {
+      "pushUrl": null,
+      "token": null
+    },
+    "discord": {
+      "webhookUrl": "https://discordapp.com/api/webhooks/656982417780768796/XE00g859PkS3SEyiUSEKPu6vBr--Pe_4IJWCzyAPR7RFIMZ5TIGURdaqXkbUutsm7Ts8",
+      "remainingMinutes": 1,
+      "remainingMorningMinutes": 720,
+      "message": {
+        "username": "carlos#0000",
+        "avatar": "https://discordapp.com/assets/322c936a8c8be1b803cd94861bdfa868.png",
+        "channel": "Discord (Actually Copping Shoes)",
+        "website": "https://carlos.sadyashica.xyz"
+      }
+    }
+  }
+}
