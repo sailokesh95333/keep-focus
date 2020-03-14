@@ -5,8 +5,6 @@
 
 // import dependencies
 import * as http from 'http';
-import * as https from 'https';
-import * as fs from 'fs';;
 import app, { addErrorRoutes, addRoutes } from './app';
 import config from './configuration';
 import { Logger, DebugLevel } from './logger';
