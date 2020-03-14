@@ -1,7 +1,4 @@
-import { getEndOfWeek, getStartOfWeek, minutesToString, timesToString, getWeekDatesList, getStartOfDay, getEndOfDay, getTodayDatesList } from '../utils';
-
-console.log(getStartOfWeek(1));
-console.log(getEndOfWeek(1));
+import { minutesToString, timesToString, getStartOfDay, getEndOfDay, getTodayDatesList, getWeekDay } from '../utils';
 
 console.log(getStartOfDay(1));
 console.log(getEndOfDay(1));
@@ -18,8 +15,10 @@ console.log(timesToString(2));
 console.log(timesToString(3));
 console.log(timesToString(12));
 
-console.log(getWeekDatesList(1, 1550444400000, 1551049199999));
-console.log(getWeekDatesList(0, 1550444400000, 1551049199999));
-console.log(getWeekDatesList(11520, 1550444400000, 1551049199999));
-
 console.log(getTodayDatesList(1, 0, 1577401299999));
+console.log(getTodayDatesList(-50, 0, 1584200258633));
+
+console.log(getWeekDay(0));
+console.log(getWeekDay(7));
+console.log(getWeekDay(8));
+console.log(getWeekDay(-17));
