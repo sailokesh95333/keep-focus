@@ -1,49 +1,71 @@
 {
   "environment": "production",
   "express": {
-      "port": 443,
-      "morgan": "combined"
+    "port": 3001,
+    "morgan": "combined"
   },
   "settings": {
-      "proxy": null,
-      "utcOffset": 1, 
-      "amountToBePaid": "100$",
-      "twitterHandle": "keepfocus",
-      "syncInterval": 30000,
-      "websiteDomain": "www.keepfocus.xyz",
-      "accounts": {
-          "forest": {
-              "username": "email@address.com",
-              "password": "password23"
-          },
-          "habitify": {
-              "username": "email@address.com",
-              "password": "password23"
-          }
+    "proxy": null,
+    "utcOffset": 1,
+    "amountToBePaid": "30$",
+    "morningAmountToBePaid": "20$",
+    "totalAmountToBePaid": "50$",
+    "twitterHandle": "keepfocus",
+    "syncInterval": 30000,
+    "websiteDomain": "www.keepfocus.xyz",
+    "passwordHash": "ab1b71e67f77a4c9b07accde42a15d6d8b98a9de703d0254ccf955ae5c024198",
+    "accounts": {
+      "forest": {
+        "username": "email@address.com",
+        "password": "password23"
       },
-      "focus": [
-          {
-              "id": 0,
-              "name": "studying",
-              "goal": 180
-          },
-          {
-              "id": 1,
-              "name": "programming",
-              "goal": 400
-          }
-      ],
-      "habits": [
-          {
-              "id": "-LSMRRzzy7zmuwVqvXgf",
-              "name": "getting up early",
-              "goal": 5
-          },
-          {
-              "id": "-LSMLfIOoJNCDoaPAGpP",
-              "name": "meditate",
-              "goal": 7
-          }
-      ]
+      "habitify": {
+        "username": "email@address.com",
+        "password": "password23"
+      }
+    },
+    "focus": [
+      {
+        "id": 0,
+        "name": "studying",
+        "goal": 180,
+        "morningGoal": 100
+      },
+      {
+        "id": 1,
+        "name": "programming",
+        "goal": 400,
+        "morningGoal": 200
+      }
+    ],
+    "habits": [
+      {
+        "id": "-LSMRRzzy7zmuwVqvXgf",
+        "name": "getting up early",
+        "goal": 5,
+        "morningGoal": 0
+      },
+      {
+        "id": "-LSMLfIOoJNCDoaPAGpP",
+        "name": "meditate",
+        "goal": 7,
+        "morningGoal": 0
+      }
+    ],
+    "lametric": {
+      "pushUrl": "https://developer.lametric.com/api/v1/dev/widget/update/com.lametric.xxxxxxxxxxxxxxxxxxxx/1",
+      "token": "asdjkahsd87qye3u2hedjhadhauydtquyjgduyagdjhasdbhjsad=="
+    },
+    "discord": {
+      "webhookUrl": "https://discordapp.com/api/webhooks/24ewr4352423324324324/asdasdsaddasdasdjaskdjasjkdbasjhdvbasghdvasghdvsaghvdasgdvhs",
+      "remainingMinutes": 1,
+      "remainingMorningMinutes": 780,
+      "message": {
+        "username": "username#0001",
+        "avatar": "https://cdn.discordapp.com/avatars/259768900298735620/e0d6793c34f2a18e7dcbee46d33576f9.png?size=256",
+        "channel": "Twitter (@twitterhandle)",
+        "website": "https://www.keepfocus.xyz"
+      }
+    }
   }
 }

@@ -51,6 +51,10 @@ export function addRoutes() : void {
   // # status routes
   app.get('/api/status', api.http(api.status.read));
 
+  // # webhook routes
+  app.get('/api/webhooks/lametric', api.http(api.webhooks.lametric));
+  app.get('/api/webhooks/togglePunishment', api.http(api.webhooks.togglePunishment));
+
   // # render files
   app.get('/', api.render(api.status.render) );
  

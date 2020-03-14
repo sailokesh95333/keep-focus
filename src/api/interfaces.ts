@@ -6,6 +6,7 @@ export interface StatusResponse {
   twitterHandle: string;
   websiteDomain: string;
   remainingTime: string;
+  punishmentIsActive: boolean;
   focus: FocusItem[]
   habits: HabitItem[]
 }
