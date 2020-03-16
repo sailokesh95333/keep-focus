@@ -89,7 +89,7 @@ class SyncManager {
   private async sync() : Promise<void> {
     // ## sync focus entries
     this.logger.normal('syncing all focus goals');
-    const ONE_WEEK_BACK = getNow() - 1000*60*60*24*14;
+    const ONE_WEEK_BACK = getNow() - 1000*60*60*24*7;
     const plants = await this.forest.getAllPlantsSince(ONE_WEEK_BACK);
 
     // start and end of day
