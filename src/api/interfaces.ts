@@ -1,12 +1,20 @@
-import { HabitItem, FocusItem } from '../sync-manager/interfaces';
-
 export interface StatusResponse {
   utcOffset: number;
-  amountToBePaid: string;
-  twitterHandle: string;
+  username: string;
   websiteDomain: string;
   remainingTime: string;
   punishmentIsActive: boolean;
-  focus: FocusItem[]
-  habits: HabitItem[]
+  totalAmount: number;
+  currentAmount: number;
+  focus: ItemResponse[];
+  habits: ItemResponse[];
+}
+
+export interface ItemResponse {
+  id: number | string;
+  name: string;
+  amount: number;
+  goal: string;
+  done: string;
+  finishedBefore: string;
 }

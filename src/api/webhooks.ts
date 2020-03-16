@@ -11,13 +11,13 @@ import { manager } from '../sync-manager';
 
 const lametric = function lametric(options: any, object: any) : any {
   // trigger display both property
-  manager.db.displayBoth = !manager.db.displayBoth;
+  manager.db.lametric.displayBoth = !manager.db.lametric.displayBoth;
   manager.pushLametric();
 
   // return response object
   return {
     success: true,
-    displayBoth: manager.db.displayBoth
+    displayBoth: manager.db.lametric.displayBoth
   };
 }
 

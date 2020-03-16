@@ -40,7 +40,8 @@ export interface FocusItem {
   amount: number;
   splits: SplitItem[];
   active: string[];
-  focused?: number;
+  isActive?: boolean;
+  done?: number;
 }
 
 export interface HabitItem {
@@ -50,22 +51,28 @@ export interface HabitItem {
   amount: number;
   splits: SplitItem[];
   active: string[];
-  done?: number | string;
+  isActive?: boolean;
+  done?: number;
 }
 
 export interface SplitItem {
   goal: number;
   remainingMinutes: number;
+  amount: number;
+  done?: number;
 }
 
 export interface SyncData {
   focus: FocusItem[];
   habits: HabitItem[];
-  max: number;
-  total: number;
-  goal: number;
-  displayBoth: boolean;
+  lametric: {
+    max: number;
+    total: number;
+    goal: number;
+    displayBoth: boolean;
+  };
+  currentAmount: number;
+  totalAmount: number;
   punishmentIsActive: boolean;
   lastNotified: number;
-  lastMorningNotified: number;
 }

@@ -1,12 +1,11 @@
 // import dependencies
-import * as moment from 'moment';
 import config from '../configuration';
-import { ForestConfig, SyncData } from './interfaces';
+import { ForestConfig, SyncData, HabitItem } from './interfaces';
 import { Forest } from '../forest';
 import { Habitify } from '../habitify';
 import { LaMetric } from '../lametric';
 import { Plant } from '../forest/interfaces';
-import { getStartOfWeek, getEndOfWeek, getStartOfDay, getEndOfDay, getWeekDatesList, getTodayDatesList } from '../utils';
+import { getStartOfDay, getEndOfDay, getRemainingMinutesInDay, getTodaysDate, getWeekDay, arrayContains, getEndOfSplit, getNow } from '../utils';
 import { Logger, DebugLevel } from '../logger';
 import { Habit } from '../habitify/interfaces';
 import Discord from '../discord';
@@ -28,20 +27,25 @@ class SyncManager {
     this.config = config;
     this.db = {
       focus: this.config.focus.map(focus => {
-        focus.focused = 0;
+        focus.done = 0;
+        focus.splits.forEach(split => split.done = 0);
         return focus;
       }),
       habits: this.config.habits.map(habit => {
         habit.done = 0;
+        habit.splits.forEach(split => split.done = 0);
         return habit;
       }),
-      max: parseInt(process.env.MAX_FOCUS) || 0,
-      total: 0,
-      goal: 0,
-      displayBoth: true,
+      lametric: {
+        max: parseInt(process.env.MAX_FOCUS) || 0,
+        total: 0,
+        goal: 0,
+        displayBoth: true
+      },
+      currentAmount: 0,
+      totalAmount: 0,
       punishmentIsActive: true,
-      lastNotified: -1,
-      lastMorningNotified: -1
+      lastNotified: -1
     };
 
     // set up clients
@@ -55,112 +59,100 @@ class SyncManager {
   }
 
   public async setup() : Promise<void> {
+    this.logger.blue('starting synchronization manager setup');
+    
+    // update is active
+    this.updateIsActive();
+
+    // update punishment
+    this.updatePunishment();
+
     // login all services
     await Promise.all([this.forest.login(), this.habitify.login()]);
     this.logger.green('manager has been initialized and is ready to go');
   }
 
   public start() : void {
+    this.logger.blue('starting synchronization manager');
     this.sync();  // immediately start the syncing task
     this.interval = setInterval(async () => {
       await this.sync();
     }, this.config.syncInterval);
   }
 
-  public async pushLametric() : Promise<void> {
-    // ## update LaMetric app
-    await this.lametric.push(this.db);
-  }
-
-  public async pushDiscord() : Promise<void> {
-    // send discord message if needed
-    let isEndOfDay = (this.getRemainingMinutes() <= this.config.discord.remainingMinutes) ? true : false;
-    let isEndOfMorning = (this.getRemainingMinutes() <= this.config.discord.remainingMorningMinutes) ? true : false;
-    let hasReachedGoals = true;
-    let hasReachedMorningGoals = true;
-    
-    // check focus goals
-    this.db.focus.forEach((it) => {
-      if (it.focused < it.goal) hasReachedGoals = false;
-      if (it.focused < it.morningGoal) hasReachedMorningGoals = false;
-    });
-
-    // check habit goals
-    this.db.habits.forEach((it) => {
-      if (it.done < it.goal) hasReachedGoals = false;
-      if (it.done < it.morningGoal) hasReachedMorningGoals = false;
-    });
-
-    // check daily habits
-    const lastNotified = getEndOfDay(this.config.utcOffset);
-    if (isEndOfDay && !hasReachedGoals && this.db.lastNotified !== lastNotified) {
-      this.db.lastNotified = lastNotified;
-      this.logger.red('user has not reached daily goals...');
-      if (this.db.punishmentIsActive) {
-        this.discord.sendNotification(this.config.discord.message.username, this.config.amountToBePaid, this.config.discord.message.channel, this.config.discord.message.website, this.config.discord.message.avatar, 'daily focus and habit goals');
-      }
-    }
-
-    // check morning habits
-    if (isEndOfMorning && !hasReachedMorningGoals && this.db.lastMorningNotified !== lastNotified) {
-      this.db.lastMorningNotified = lastNotified;
-      this.logger.red('user has not reached morning goals...');
-      if (this.db.punishmentIsActive) {
-        this.discord.sendNotification(this.config.discord.message.username, this.config.morningAmountToBePaid, this.config.discord.message.channel, this.config.discord.message.website, this.config.discord.message.avatar, 'morning focus and habit goals');
-      }
-    }
-  }
-
   public stop() : void {
+    this.logger.blue('stopping synchronization manager');
     // clear interval
     clearInterval(this.interval);
-  }
-
-  public getRemainingMinutes() : number {
-    let end = moment().endOf('day').add(-1*this.config.utcOffset, 'hours');
-    let start = moment();
-    let duration = moment.duration(end.diff(start));
-    return Math.ceil(duration.asMinutes());
   }
 
   private async sync() : Promise<void> {
     // ## sync focus entries
     this.logger.normal('syncing all focus goals');
-    const TWO_WEEKS_BACK = moment().valueOf() - 1000*60*60*24*14;
-    const plants = await this.forest.getAllPlantsSince(TWO_WEEKS_BACK);
+    const ONE_WEEK_BACK = getNow() - 1000*60*60*24*14;
+    const plants = await this.forest.getAllPlantsSince(ONE_WEEK_BACK);
 
-    // LMAO wtf am i doing
-    
+    // start and end of day
+    const startOfDay = getStartOfDay(this.config.utcOffset);
+    const endOfDay = getEndOfDay(this.config.utcOffset);
 
-    // lol wat
+    // initialize statistics for lametric and punishment
+    const lametric = {
+      total: 0,
+      goal: 0
+    }
 
-    // start and end of week
-    const startOfWeek = getStartOfDay(this.config.utcOffset);
-    const endOfWeek = getEndOfDay(this.config.utcOffset);
-
+    // update is active
+    this.updateIsActive();
+   
     // update all focus entries
-    let total = 0;
-    let goal = 0;
     this.db.focus.forEach(focus => {
-      focus.focused = this.calculateMinutesFromPlantsWithTag(plants, focus.id, startOfWeek, endOfWeek);
-      total += focus.focused;
-      goal += focus.goal as number;
+      if (focus.isActive) {
+        // focus task is active today
+        this.logger.normal(`${focus.name} is active today. iterating through all splits`, DebugLevel.DEV);
+        
+        // iterate through all splits
+        focus.splits.forEach(split => {
+          const endOfSplit = getEndOfSplit(this.config.utcOffset, split.remainingMinutes);
+          split.done = this.calculateMinutesFromPlantsWithTag(plants, focus.id, startOfDay, endOfSplit);
+        });
+        
+        // calculate total focus
+        focus.done = this.calculateMinutesFromPlantsWithTag(plants, focus.id, startOfDay, endOfDay);
+        
+        // update lametric stats
+        lametric.total += focus.done;
+        lametric.goal += focus.goal;
+      }
     });
 
-    // check if local max is greater than our max
-    this.db.total = total;
-    this.db.goal = goal;
-    if (total > this.db.max) this.db.max = total;
+    // ## update lametric stats
+    // check if local max is greater than our max 
+    this.db.lametric.total = lametric.total;
+    this.db.lametric.goal = lametric.goal;
+    if (lametric.total > this.db.lametric.max) this.db.lametric.max = lametric.total;
 
     // ## sync habit entries
     this.logger.normal('syncing all habit goals');
     const habits = await this.habitify.getAllHabits();
     
-    let dates = getTodayDatesList(this.config.utcOffset, startOfWeek, endOfWeek);
-    this.db.habits.forEach(item => {
-      const habit = habits[item.id];
-      item.done = this.calculateNumberOfDoneHabit(habit, dates);
+    const date = getTodaysDate(this.config.utcOffset, endOfDay);
+    this.db.habits.forEach(habit => {
+      if (habit.isActive) {
+        // habit task is active today
+        this.logger.normal(`${habit.name} is active today. iterating through all splits`, DebugLevel.DEV);
+
+        // calculate number of done habits
+        const item = habits[habit.id];
+        habit.done = this.calculateNumberOfDoneHabit(item, [date]);
+
+        // determine which habits completed in time and update done habits
+        this.updateSplits(habit);
+      }
     });
+
+    // update punishment
+    this.updatePunishment();
 
     this.logger.green('successfully synced all focus and habit goals...');
 
@@ -169,6 +161,67 @@ class SyncManager {
 
     // ## update LaMetric app
     this.pushLametric();
+  }
+
+  private updatePunishment() : void {
+    const punishment = {
+      total: 0,
+      current: 0
+    };
+
+    // iterate through focus goals
+    this.db.focus.forEach(focus => {
+      if (focus.isActive) {
+        punishment.total += focus.amount;
+        if (focus.goal > focus.done) punishment.current += focus.amount;
+        focus.splits.forEach(split => {
+          punishment.total += split.amount;
+          if (split.goal > split.done) punishment.current += split.amount;
+        });
+      }
+    });
+
+    // iterate through habit goals
+    this.db.habits.forEach(habit => {
+      if (habit.isActive) {
+        punishment.total += habit.amount;
+        if (habit.goal > habit.done) punishment.current += habit.amount;
+        habit.splits.forEach(split => {
+          punishment.total += split.amount;
+          if (split.goal > split.done) punishment.current += split.amount;
+        });
+      }
+    });
+
+    // update punishment
+    this.db.totalAmount = punishment.total;
+    this.db.currentAmount = punishment.current;
+  }
+
+  private updateIsActive() : void {
+    const weekDay = getWeekDay(this.config.utcOffset);
+    
+    // update focus goals
+    this.db.focus.forEach(focus => {
+      focus.isActive = arrayContains(focus.active, weekDay);
+    });
+
+    // update habit goals
+    this.db.habits.forEach(habit => {
+      habit.isActive = arrayContains(habit.active, weekDay);
+    });
+  }
+
+  private updateSplits(habit: HabitItem) : void {
+    // iterate through all splits and update habites completion
+    const now = getNow();
+    habit.splits.forEach(split => {
+      const endOfSplit = getEndOfSplit(this.config.utcOffset, split.remainingMinutes);
+      if (now <= endOfSplit) {
+        // the deadline for this split has not passed yet
+        split.done = habit.done;
+      }
+    });
   }
 
   private calculateNumberOfDoneHabit(habit: Habit, dates: string[]) : number {
@@ -205,6 +258,21 @@ class SyncManager {
   private fromISOtoUnix(iso: string) : number {
     return new Date(iso).getTime();
   }
+
+  public async pushLametric() : Promise<void> {
+    // update LaMetric app
+    await this.lametric.push(this.db);
+  }
+
+  public async pushDiscord() : Promise<void> {
+    // send discord message if needed
+    let isEndOfDay = (getRemainingMinutesInDay(this.config.utcOffset) <= 1) ? true : false;
+
+    if (this.db.punishmentIsActive && isEndOfDay) {
+      this.discord.sendNotification(this.config.discord.message.username, this.db.currentAmount, this.config.discord.message.channel, this.config.discord.message.website, this.config.discord.message.avatar, 'daily focus and habit goals');
+    }
+  }
+
 }
 
 // export singleton manager

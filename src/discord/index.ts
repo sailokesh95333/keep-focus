@@ -27,7 +27,7 @@ export default class Discord {
     return await request(options);
   }
 
-  public async sendNotification(username: string, prize: string, channel: string, url: string, thumbnail: string, message: string) : Promise<void> {
+  public async sendNotification(username: string, prize: number, channel: string, url: string, thumbnail: string, message: string) : Promise<void> {
     // prepare notification body
     let body = {
       username: 'Focus Tracker',
@@ -48,7 +48,7 @@ export default class Discord {
         fields: [
           {
             name: 'Prize',
-            value: prize,
+            value: '$' + prize,
             inline: true,
           },
           {

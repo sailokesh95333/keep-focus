@@ -7,11 +7,8 @@
   "settings": {
     "proxy": null,
     "utcOffset": 1,
-    "amountToBePaid": "30$",
-    "morningAmountToBePaid": "20$",
-    "totalAmountToBePaid": "50$",
-    "twitterHandle": "keepfocus",
     "syncInterval": 30000,
+    "username": "keepfocus",
     "websiteDomain": "www.keepfocus.xyz",
     "passwordHash": "ab1b71e67f77a4c9b07accde42a15d6d8b98a9de703d0254ccf955ae5c024198",
     "accounts": {
@@ -28,28 +25,42 @@
       {
         "id": 0,
         "name": "studying",
-        "goal": 180,
-        "morningGoal": 100
+        "goal": 300,
+        "amount": 20,
+        "active": ["mo", "tu", "we", "th", "fr"],
+        "splits": [
+          {
+            "goal": 120,
+            "remainingMinutes": 720,
+            "amount": 20
+          }
+        ]
       },
       {
         "id": 1,
         "name": "programming",
-        "goal": 400,
-        "morningGoal": 200
+        "goal": 100,
+        "amount": 20,
+        "active": ["mo", "tu", "we", "th", "fr"],
+        "splits": []
       }
     ],
     "habits": [
       {
         "id": "-LSMRRzzy7zmuwVqvXgf",
         "name": "getting up early",
-        "goal": 5,
-        "morningGoal": 0
+        "goal": 1,
+        "amount": 10,
+        "active": ["mo", "tu", "we", "th", "fr"],
+        "splits": []
       },
       {
         "id": "-LSMLfIOoJNCDoaPAGpP",
         "name": "meditate",
-        "goal": 7,
-        "morningGoal": 0
+        "goal": 1,
+        "amount": 5,
+        "active": ["mo", "tu", "we", "th", "fr", "sa", "su"],
+        "splits": []
       }
     ],
     "lametric": {
@@ -58,8 +69,6 @@
     },
     "discord": {
       "webhookUrl": "https://discordapp.com/api/webhooks/24ewr4352423324324324/asdasdsaddasdasdjaskdjasjkdbasjhdvbasghdvasghdvsaghvdasgdvhs",
-      "remainingMinutes": 1,
-      "remainingMorningMinutes": 780,
       "message": {
         "username": "username#0001",
         "avatar": "https://cdn.discordapp.com/avatars/259768900298735620/e0d6793c34f2a18e7dcbee46d33576f9.png?size=256",

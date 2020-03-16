@@ -34,8 +34,8 @@ export class LaMetric {
           {
             goalData: {
               start: 0,
-              current: data.total,
-              end: data.goal,
+              current: data.lametric.total,
+              end: data.lametric.goal,
               unit: ' MIN'
             },
             icon: 'a23334',
@@ -46,16 +46,16 @@ export class LaMetric {
     };
 
     // check if we should display both
-    if (data.displayBoth) {
+    if (data.lametric.displayBoth) {
       payload.body.frames.push({
-        text: data.max + ' MIN',
+        text: data.lametric.max + ' MIN',
         icon: 'a2867',
         index: 1
       });
     }
 
     // make the push request
-    this.logger.normal(`pushing out new data to LaMetric (total: ${data.total}; highscore: ${data.max})`);
+    this.logger.normal(`pushing out new data to LaMetric (total: ${data.lametric.total}; highscore: ${data.lametric.max})`);
     await this.makeRequest(payload).catch(err => {
       this.logger.red(JSON.stringify(err));
       throw new Error('there was an error pushing the data to LaMetric');
