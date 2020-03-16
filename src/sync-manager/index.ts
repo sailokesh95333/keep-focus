@@ -268,7 +268,7 @@ class SyncManager {
     // send discord message if needed
     let isEndOfDay = (getRemainingMinutesInDay(this.config.utcOffset) <= 1) ? true : false;
 
-    if (this.db.punishmentIsActive && isEndOfDay) {
+    if (this.db.punishmentIsActive && isEndOfDay && this.db.currentAmount > 0) {
       this.discord.sendNotification(this.config.discord.message.username, this.db.currentAmount, this.config.discord.message.channel, this.config.discord.message.website, this.config.discord.message.avatar, 'daily focus and habit goals');
     }
   }
