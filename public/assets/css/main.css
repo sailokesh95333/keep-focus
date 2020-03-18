@@ -62,6 +62,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+a:hover {
+  color: #3D3D3D;
+}
+
 .content__wrapper {
   max-width: 1080px;
   padding: 4rem 2.5rem 2.5rem 2.5rem;

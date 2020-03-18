@@ -27,19 +27,19 @@ export default class Discord {
     return await request(options);
   }
 
-  public async sendNotification(username: string, prize: number, channel: string, url: string, thumbnail: string, message: string) : Promise<void> {
+  public async sendNotification(username: string, prize: number, url: string, thumbnail: string, message: string) : Promise<void> {
     // prepare notification body
     let body = {
-      username: 'Focus Tracker',
+      username: 'KeepFocus',
       avatar_url: 'https://zen-cdn.s3.amazonaws.com/assets/zen_logo.png',
       embeds: [{
         type: 'rich',
         title: `${username} is slacking!`.toUpperCase(),
-        description: `${username} has failed to reach the ${message}. Thus, the amount specified below will be raffled among all participants on the given channel.`,
+        description: `${username} has failed to reach the ${message}. Thus, the amount specified below will be raffled among all participants.`,
         url,
         color: 16739693,
         footer: {
-          text: `Focus Tracker | powered by zen | ${new Date().toISOString()}`,
+          text: `KeepFocus | powered by  keepfocus| ${new Date().toISOString()}`,
           icon_url: 'https://zen-cdn.s3.amazonaws.com/assets/zen_logo.png'
         },
         thumbnail: {
@@ -52,8 +52,8 @@ export default class Discord {
             inline: true,
           },
           {
-            name: 'Channel',
-            value: channel,
+            name: 'Username',
+            value: username,
             inline: true,
           }
         ]

@@ -17,7 +17,6 @@ export interface ForestConfig {
     message: {
       username: string;
       avatar: string;
-      channel: string;
       website: string;
     }
   }

@@ -272,7 +272,7 @@ class SyncManager {
     if (isEndOfDay && this.db.currentAmount > 0 && this.db.lastNotified !== lastNotified) {
       this.db.lastNotified = lastNotified;
       if (this.db.punishmentIsActive) {
-        this.discord.sendNotification(this.config.discord.message.username, this.db.currentAmount, this.config.discord.message.channel, this.config.discord.message.website, this.config.discord.message.avatar, 'daily focus and habit goals');
+        this.discord.sendNotification(this.config.discord.message.username, this.db.currentAmount, this.config.discord.message.website, this.config.discord.message.avatar, 'daily focus and habit goals');
       }
     }
   }
