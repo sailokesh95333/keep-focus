@@ -8,6 +8,7 @@ export interface ForestConfig {
   accounts: Accounts;
   focus: FocusItem[];
   habits: HabitItem[];
+  nfc: HabitItem[];
   lametric: {
     pushUrl: string;
     token: string;
@@ -64,6 +65,7 @@ export interface SplitItem {
 export interface SyncData {
   focus: FocusItem[];
   habits: HabitItem[];
+  nfc: HabitItem[];
   lametric: {
     max: number;
     total: number;
@@ -73,5 +75,5 @@ export interface SyncData {
   currentAmount: number;
   totalAmount: number;
   punishmentIsActive: boolean;
-  lastNotified: number;
+  lastEndOfDay: number;
 }

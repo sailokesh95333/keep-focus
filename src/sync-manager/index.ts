@@ -1,4 +1,5 @@
 // import dependencies
+import * as crypto from 'crypto';
 import config from '../configuration';
 import { ForestConfig, SyncData, HabitItem } from './interfaces';
 import { Forest } from '../forest';
@@ -36,6 +37,11 @@ class SyncManager {
         habit.splits.forEach(split => split.done = 0);
         return habit;
       }),
+      nfc: this.config.nfc.map(habit => {
+        habit.done = 0;
+        habit.splits.forEach(split => split.done = 0);
+        return habit;
+      }),
       lametric: {
         max: parseInt(process.env.MAX_FOCUS) || 0,
         total: 0,
@@ -45,7 +51,7 @@ class SyncManager {
       currentAmount: 0,
       totalAmount: 0,
       punishmentIsActive: true,
-      lastNotified: -1
+      lastEndOfDay: -1
     };
 
     // set up clients
@@ -84,6 +90,23 @@ class SyncManager {
     this.logger.blue('stopping synchronization manager');
     // clear interval
     clearInterval(this.interval);
+  }
+
+  public NFCTagScanned(id: string) : boolean {
+    // find the scanned nfc habit
+    const hash = crypto.createHash('sha256').update(id, 'utf8').digest('hex');
+    const habit = this.db.nfc.find(habit => habit.id == hash);
+    if (habit) {
+      this.logger.normal(`nfc tag scanned called for tag ${habit.name}`, DebugLevel.DEV);
+      
+      // update number of done habits
+      habit.done++;
+      this.updateSplits(habit);
+      return true;
+    } else {
+      this.logger.red(`nfc tag scanned called for unknown tag ${id}`);
+      return false;
+    }
   }
 
   private async sync() : Promise<void> {
@@ -153,14 +176,13 @@ class SyncManager {
 
     // update punishment
     this.updatePunishment();
-
     this.logger.green('successfully synced all focus and habit goals...');
-
-    // ## push out discord message if needed
-    this.pushDiscord();
-
+    
     // ## update LaMetric app
     this.pushLametric();
+
+    // ## clean up end of day tasks
+    this.doEndOfDay();
   }
 
   private updatePunishment() : void {
@@ -193,6 +215,18 @@ class SyncManager {
       }
     });
 
+    // iterate through nfc goals
+    this.db.nfc.forEach(habit => {
+      if (habit.isActive) {
+        punishment.total += habit.amount;
+        if (habit.goal > habit.done) punishment.current += habit.amount;
+        habit.splits.forEach(split => {
+          punishment.total += split.amount;
+          if (split.goal > split.done) punishment.current += split.amount;
+        });
+      }
+    });
+
     // update punishment
     this.db.totalAmount = punishment.total;
     this.db.currentAmount = punishment.current;
@@ -208,6 +242,11 @@ class SyncManager {
 
     // update habit goals
     this.db.habits.forEach(habit => {
+      habit.isActive = arrayContains(habit.active, weekDay);
+    });
+
+    // update nfc goals
+    this.db.nfc.forEach(habit => {
       habit.isActive = arrayContains(habit.active, weekDay);
     });
   }
@@ -264,13 +303,21 @@ class SyncManager {
     await this.lametric.push(this.db);
   }
 
-  public async pushDiscord() : Promise<void> {
-    // send discord message if needed
+  public async doEndOfDay() : Promise<void> {
+    // check if we are at the end of day
     const isEndOfDay = (getRemainingMinutesInDay(this.config.utcOffset) <= 1) ? true : false;
-    const lastNotified = getEndOfDay(this.config.utcOffset);
+    const lastEndOfDay = getEndOfDay(this.config.utcOffset);
 
-    if (isEndOfDay && this.db.currentAmount > 0 && this.db.lastNotified !== lastNotified) {
-      this.db.lastNotified = lastNotified;
+    if (isEndOfDay && this.db.currentAmount > 0 && this.db.lastEndOfDay !== lastEndOfDay) {
+      this.db.lastEndOfDay = lastEndOfDay;
+      
+      // reset the NFC habit goals
+      this.config.nfc.forEach(habit => {
+        habit.done = 0;
+        habit.splits.forEach(split => split.done = 0);
+      });
+
+      // send out discord push if punishment is enabled
       if (this.db.punishmentIsActive) {
         this.discord.sendNotification(this.config.discord.message.username, this.db.currentAmount, this.config.discord.message.website, this.config.discord.message.avatar, 'daily focus and habit goals');
       }

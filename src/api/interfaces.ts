@@ -18,3 +18,7 @@ export interface ItemResponse {
   done: string;
   finishedBefore: string;
 }
+
+export interface SuccessResponse {
+  success: boolean;
+}

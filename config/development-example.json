@@ -63,6 +63,22 @@
         "splits": []
       }
     ],
+    "nfc": [
+      {
+        "id": "<sha256 hash>",
+        "name": "evening sporsts",
+        "goal": 1,
+        "amount": 10,
+        "active": ["mo", "tu", "we", "th", "fr", "sa", "su"],
+        "splits": [
+          {
+          "goal": 30,
+          "remainingMinutes": 720,
+          "amount": 33
+          }
+        ]
+      }
+    ],
     "lametric": {
       "pushUrl": "https://developer.lametric.com/api/v1/dev/widget/update/com.lametric.xxxxxxxxxxxxxxxxxxxx/1",
       "token": "asdjkahsd87qye3u2hedjhadhauydtquyjgduyagdjhasdbhjsad=="

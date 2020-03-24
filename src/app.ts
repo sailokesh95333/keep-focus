@@ -55,6 +55,9 @@ export function addRoutes() : void {
   app.get('/api/webhooks/lametric', api.http(api.webhooks.lametric));
   app.get('/api/webhooks/togglePunishment', api.http(api.webhooks.togglePunishment));
 
+  // # NFC tags
+  app.get('/api/tags/:id', api.http(api.tags.read));
+
   // # render files
   app.get('/', api.render(api.status.render) );
  

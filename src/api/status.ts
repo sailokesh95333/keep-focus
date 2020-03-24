@@ -18,7 +18,7 @@ const read = function read(options: any, object: any) : StatusResponse {
     return transformToResponse(item);
   });
 
-  const habitItems = manager.db.habits.filter(item => item.isActive);
+  const habitItems = manager.db.habits.filter(item => item.isActive).concat(manager.db.nfc.filter(item => item.isActive));
   const habits : ItemResponse[] = habitItems.map(item => {
     return transformToResponse(item, true);
   });
@@ -39,13 +39,13 @@ const read = function read(options: any, object: any) : StatusResponse {
 
 const transformToResponse = function transformToResponse(item: FocusItem | HabitItem, isHabit: boolean = false) : ItemResponse {
   // add default end-of-day split
-  const items: SplitItem[] = JSON.parse(JSON.stringify(item.splits));
-  items.push({
+  const defaultItem = {
     goal: item.goal,
     done: item.done,
     amount: item.amount,
     remainingMinutes: 0,
-  });
+  };
+  const items: SplitItem[] = [ defaultItem, ...item.splits ];
 
   // find currently active split
   const now = getNow();
@@ -56,6 +56,8 @@ const transformToResponse = function transformToResponse(item: FocusItem | Habit
       currentSplit = split;
     }
   });
+
+  console.log(currentSplit);
 
   // return transformed item
   const toString = isHabit ? timesToString : minutesToString;
