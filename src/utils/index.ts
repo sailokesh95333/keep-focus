@@ -2,19 +2,19 @@
 import * as moment from 'moment';
 
 export const getStartOfDay = function getStartOfDay(timezone: number) : number {
-  return moment().startOf('day').add(-1*timezone, 'hours').valueOf();
+  return moment().add(timezone, 'hours').startOf('day').add(-1*timezone, 'hours').valueOf();
 }
 
 export const getEndOfDay = function getEndOfDay(timezone: number) : number {
-  return moment().endOf('day').add(-1*timezone, 'hours').valueOf();
+  return moment().add(timezone, 'hours').endOf('day').add(-1*timezone, 'hours').valueOf();
 }
 
 export const getEndOfSplit = function getEndOfSplit(timezone: number, remainingMinutes: number) : number {
-  return moment().endOf('day').add(-1*timezone, 'hours').add(-1*remainingMinutes, 'minutes').valueOf();
+  return moment().add(timezone, 'hours').endOf('day').add(-1*timezone, 'hours').add(-1*remainingMinutes, 'minutes').valueOf();
 }
 
 export const getRemainingMinutesInDay = function getRemainingMinutesInDay(timezone: number) : number {
-  let end = moment().endOf('day').add(-1*timezone, 'hours');
+  let end = moment().add(timezone, 'hours').endOf('day').add(-1*timezone, 'hours');
   let start = moment();
   let duration = moment.duration(end.diff(start));
   return Math.ceil(duration.asMinutes());

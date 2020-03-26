@@ -49,12 +49,9 @@ const transformToResponse = function transformToResponse(item: FocusItem | Habit
 
   // find currently active split
   const now = getNow();
-
-  console.log(items);
   let currentSplit: SplitItem = null;
   items.forEach(split => {
     const endOfSplit = getEndOfSplit(manager.config.utcOffset, split.remainingMinutes);
-    console.log('now ', now, 'end', endOfSplit);
     if (endOfSplit >= now && (!currentSplit || split.remainingMinutes > currentSplit.remainingMinutes)) {
       currentSplit = split;
     }

@@ -1,4 +1,4 @@
-import { minutesToString, timesToString, getStartOfDay, getEndOfDay, getWeekDay, getTodaysDate, getEndOfSplit, remainingToTime } from '../utils';
+import { minutesToString, timesToString, getStartOfDay, getEndOfDay, getWeekDay, getTodaysDate, getEndOfSplit, remainingToTime, getRemainingMinutesInDay } from '../utils';
 
 console.log(getStartOfDay(1));
 console.log(getEndOfDay(1));
@@ -25,7 +25,10 @@ console.log(getWeekDay(7));
 console.log(getWeekDay(8));
 console.log(getWeekDay(-17));
 
+console.log(getRemainingMinutesInDay(1));
+
 console.log(getEndOfSplit(0, 720));
+console.log(getEndOfSplit(1, 0));
 console.log(getEndOfSplit(1, 720));
 
 console.log(remainingToTime(0));
