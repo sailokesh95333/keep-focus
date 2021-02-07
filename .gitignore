@@ -30,3 +30,9 @@ dist/**/*
 
 # ignore db files
 db/*
+
+# ignore config files
+config/*
+!config/default.json
+!config/development-example.json
+!config/production-example.json
