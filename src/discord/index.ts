@@ -39,7 +39,7 @@ export default class Discord {
         url,
         color: 16739693,
         footer: {
-          text: `KeepFocus | powered by  keepfocus| ${new Date().toISOString()}`,
+          text: `KeepFocus | powered by KeepFocus | ${new Date().toISOString()}`,
           icon_url: 'https://zen-cdn.s3.amazonaws.com/assets/zen_logo.png'
         },
         thumbnail: {
