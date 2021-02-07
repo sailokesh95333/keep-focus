@@ -8,8 +8,8 @@
     "proxy": null,
     "utcOffset": 1,
     "syncInterval": 30000,
-    "username": "keepfocus",
-    "websiteDomain": "www.keepfocus.xyz",
+    "username": "johndoe",
+    "websiteDomain": "johndoe.keepfocus.xyz",
     "passwordHash": "ab1b71e67f77a4c9b07accde42a15d6d8b98a9de703d0254ccf955ae5c024198",
     "accounts": {
       "forest": {
@@ -63,6 +63,22 @@
         "splits": []
       }
     ],
+    "nfc": [
+      {
+        "id": "38a3828jds8dus28jas8ausauhs",
+        "name": "morning run",
+        "goal": 1,
+        "amount": 0,
+        "active": ["mo", "tu", "we", "th", "fr", "sa", "su"],
+        "splits": [
+          {
+          "goal": 1,
+          "remainingMinutes": 960,
+          "amount": 10
+          }
+        ]
+      }
+    ],
     "lametric": {
       "pushUrl": "https://developer.lametric.com/api/v1/dev/widget/update/com.lametric.xxxxxxxxxxxxxxxxxxxx/1",
       "token": "asdjkahsd87qye3u2hedjhadhauydtquyjgduyagdjhasdbhjsad=="
@@ -72,8 +88,7 @@
       "message": {
         "username": "username#0001",
         "avatar": "https://cdn.discordapp.com/avatars/259768900298735620/e0d6793c34f2a18e7dcbee46d33576f9.png?size=256",
-        "channel": "Twitter (@twitterhandle)",
-        "website": "https://www.keepfocus.xyz"
+        "website": "https://johndoe.keepfocus.xyz"
       }
     }
   }
