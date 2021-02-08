@@ -1,20 +1,20 @@
 {
-  "name": "forest-monitor",
-  "version": "0.0.1",
-  "description": "a focus monitor",
+  "name": "keep-focus",
+  "version": "1.0.0",
+  "description": "web application helping people to achieve their focus and habit goals",
   "author": "Sad Yashica",
   "scripts": {
     "all-tags": "npm run build-ts && node dist/tools/all-tags.js",
     "all-habits": "npm run build-ts &&  node dist/tools/all-habits.js",
     "start": "npm run serve",
     "build": "npm run build-ts && npm run tslint",
-    "serve": "node dist/app.js",
-    "watch-node": "nodemon dist/app.js",
+    "serve": "node dist/server.js",
+    "watch-node": "nodemon dist/server.js",
     "build-ts": "tsc",
     "watch-ts": "tsc -w",
     "tslint": "tslint -c tslint.json -p tsconfig.json",
     "debug": "npm run build && npm run watch-debug",
-    "serve-debug": "nodemon --inspect dist/app.js"
+    "serve-debug": "nodemon --inspect dist/server.js"
   },
   "devDependencies": {
     "@types/body-parser": "^1.16.8",
