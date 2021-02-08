@@ -1,4 +1,4 @@
-<p align="center"><a href="https://sady.keepfocus.xyz" title="keepfocus.xyz"><img src="https://github.com/nicohaenggi/keep-focus/tree/master/docs/keepfocus-demo.png" alt="keepfocus.xyz"></a></p>
+<p align="center"><a href="https://sady.keepfocus.xyz" title="keepfocus.xyz"><img src="https://github.com/nicohaenggi/keep-focus/blob/master/docs/keepfocus-demo.png" alt="keepfocus.xyz"></a></p>
 
 # KeepFocus
 
@@ -18,6 +18,7 @@ _Contributions, feature requests and bug reports are always welcome. Be sure to 
 - [API](#api)
 - [Limitations](#api)
 - [Contributing](#contributing)
+- [Copyright](#copyright)
 
 ## Features
 
@@ -161,3 +162,7 @@ If you have a great idea to improve KeepFocus, please [search the feature tracke
 
 ### [Pull Requests](https://github.com/nicohaenggi/keep-focus/pulls)
 If you'd like to make your own changes ensure your Pull Request is made against the `dev` branch.
+
+# Copyright
+
+Copyright (c) 2021 Nico Haenggi - Released under the [MIT License](https://github.com/nicohaenggi/keep-focus/blob/master/LICENSE)
